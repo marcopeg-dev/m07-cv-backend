@@ -25,7 +25,10 @@ server.get("/:uname", async (request, reply) => {
 });
 
 server.post("/", async (request, reply) => {
-  const sql = "INSERT INTO todos (text) VALUES ($1)";
+  const sql = `INSERT INTO todos (text) VALUES ($1)
+  ON CONFLICT ON CONSTRAINT 'cv_data_pkey' DO
+  UPDATE SET data = EXCLUDED.data
+  `;
   const values = [request.body.text];
   const result = await client.query(sql, values);
   reply.send(result);
