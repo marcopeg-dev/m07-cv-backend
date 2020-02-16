@@ -21,7 +21,7 @@ server.get("/:uname", async (request, reply) => {
     return;
   }
 
-  reply.send(result.rows);
+  reply.send(result.rows[0].data);
 });
 
 server.post("/", async (request, reply) => {
