@@ -1,22 +1,3 @@
-/**
- * FASTIFY PLUGINS & CORS
- * ==================================================
- *
- * ## What do I need?
- * Before you star,t you should obtain a "Postgres connection string".
- * If you don't know what that is, google it :-)
- *
- * You can get a free Postgres instance following this article:
- * https://marcopeg.com/2019/setup-free-postgres
- *
- * ## Sandbox Settings
- *
- * Once you have that piece of info, you should fork this sandbox
- * into your account and configure it by setting up a "SECRET KEY"
- * named "PGSTRING" in the "Server Control Panel" from the left
- * hand toolbar.
- */
-
 // Load the project's dependencies:
 const fastify = require("fastify");
 const fastifyCors = require("fastify-cors");
@@ -31,9 +12,15 @@ const client = new Client({
 const server = fastify({ logger: true });
 server.register(fastifyCors, {});
 
-server.get("/", async (request, reply) => {
-  const sql = "SELECT * FROM todos";
-  const result = await client.query(sql);
+server.get("/:uname", async (request, reply) => {
+  const sql = "SELECT * FROM cv_data WHERE id = $1";
+  const result = await client.query(sql, [request.params.uname]);
+
+  if (!result.rowCount) {
+    reply.code(404).send("Not found");
+    return;
+  }
+
   reply.send(result.rows);
 });
 
