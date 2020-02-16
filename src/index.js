@@ -24,11 +24,16 @@ server.get("/:uname", async (request, reply) => {
   reply.send(result.rows[0].data);
 });
 
-server.post("/", async (request, reply) => {
-  const sql = "INSERT INTO todos (text) VALUES ($1)";
-  const values = [request.body.text];
+server.post("/:uname", async (request, reply) => {
+  const sql = `
+    INSERT INTO cv_data VALUES ($1, $2)
+    ON CONFLICT ON CONSTRAINT cv_data_pkey DO
+    UPDATE SET data = EXCLUDED.data
+    RETURNING data
+  `; 
+  const values = [request.params.uname, request.body];
   const result = await client.query(sql, values);
-  reply.send(result);
+  reply.send(result.rows[0].data);
 });
 
 (async () => {
