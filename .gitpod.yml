@@ -1,0 +1,9 @@
+tasks:
+  - name: App.
+    init: yarn install
+    command: yarn start
+    openIn: right
+
+ports:
+  - port: 8080
+    onOpen: ignore
