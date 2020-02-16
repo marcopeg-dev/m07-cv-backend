@@ -6,7 +6,11 @@
   "scripts": {
     "start": "nodemon src/index.js"
   },
-  "dependencies": {},
+  "dependencies": {
+    "fastify": "2.12.0",
+    "fastify-cors": "3.0.1",
+    "pg": "7.18.1"
+  },
   "devDependencies": {
     "nodemon": "1.18.4"
   },
