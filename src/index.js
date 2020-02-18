@@ -30,7 +30,7 @@ server.post("/:uname", async (request, reply) => {
     ON CONFLICT ON CONSTRAINT cv_data_pkey DO
     UPDATE SET data = EXCLUDED.data
     RETURNING data
-  `; 
+  `;
   const values = [request.params.uname, request.body];
   const result = await client.query(sql, values);
   reply.send(result.rows[0].data);
