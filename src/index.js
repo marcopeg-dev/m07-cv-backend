@@ -14,7 +14,7 @@ server.register(fastifyCors, {});
 
 server.get("/:uname", async (request, reply) => {
   if (!request.params.uname) {
-    reply.code(404).send("Not foundgvvjhvjhv");
+    reply.code(404).send("Data not available");
     return;
   }
 
