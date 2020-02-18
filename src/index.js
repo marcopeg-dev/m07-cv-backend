@@ -30,6 +30,11 @@ server.get("/:uname", async (request, reply) => {
 });
 
 server.post("/:uname", async (request, reply) => {
+  if (!request.params.uname) {
+    reply.code(404).send("Data not available");
+    return;
+  }
+
   const sql = `
     INSERT INTO cv_data VALUES ($1, $2)
     ON CONFLICT ON CONSTRAINT cv_data_pkey DO
