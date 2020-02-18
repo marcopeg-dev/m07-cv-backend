@@ -1,7 +1,7 @@
 tasks:
   - name: App.
     init: yarn install
-    command: yarn start
+    command: yarn start:dev
     openIn: right
 
 ports:
