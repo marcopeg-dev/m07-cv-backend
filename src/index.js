@@ -50,7 +50,7 @@ server.post("/:uname", async (request, reply) => {
     `);
 
     // start the server
-    await server.listen(process.env.PORT || 8080);
+    await server.listen(process.env.PORT || 8080, "0.0.0.0");
 
     console.info("App started correctly");
   } catch (err) {
