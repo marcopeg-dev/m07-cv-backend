@@ -13,6 +13,11 @@ const server = fastify({ logger: true });
 server.register(fastifyCors, {});
 
 server.get("/:uname", async (request, reply) => {
+  if (!request.params.uname) {
+    reply.code(404).send("Data not available");
+    return;
+  }
+
   const sql = "SELECT * FROM cv_data WHERE id = $1";
   const result = await client.query(sql, [request.params.uname]);
 
@@ -30,7 +35,7 @@ server.post("/:uname", async (request, reply) => {
     ON CONFLICT ON CONSTRAINT cv_data_pkey DO
     UPDATE SET data = EXCLUDED.data
     RETURNING data
-  `;
+    `;
   const values = [request.params.uname, request.body];
   const result = await client.query(sql, values);
   reply.send(result.rows[0].data);
