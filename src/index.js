@@ -23,7 +23,7 @@ server.get("/:uname", async (request, reply) => {
     const result = await client.query(sql, [request.params.uname]);
 
     if (!result.rowCount) {
-        reply.code(404).send("The username was not found");
+        reply.code(404).send("The username was not found.");
         return;
     }
 
