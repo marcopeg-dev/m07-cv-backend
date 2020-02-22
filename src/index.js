@@ -14,7 +14,7 @@ server.register(fastifyCors, {});
 
 server.get("/:uname", async (request, reply) => {
   if (!request.params.uname) {
-    const sql = "SELECT * FROM cv_data";
+    const sql = "SELECT id FROM cv_data";
     const result = await client.query(sql);
     reply.send(result.rows);
   }
