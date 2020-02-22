@@ -14,8 +14,9 @@ server.register(fastifyCors, {});
 
 server.get("/:uname", async (request, reply) => {
   if (!request.params.uname) {
-    reply.code(404).send("Data not available");
-    return;
+    const sql = "SELECT * FROM cv_data";
+    const result = await client.query(sql);
+    reply.send(result.rows);
   }
 
   const sql = "SELECT * FROM cv_data WHERE id = $1";
